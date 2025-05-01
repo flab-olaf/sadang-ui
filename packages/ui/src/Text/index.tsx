@@ -14,14 +14,21 @@ export interface TextProps extends HTMLAttributes<HTMLDivElement> {
     inline?: boolean
 }
 
-export function Text({children, color = 'adaptiveGrey900', size = 't3', bold = false, inline, ...props}: TextProps = {}) {
+export function Text({
+    children,
+    color = 'adaptiveGrey900',
+    size = 't3',
+    bold = false,
+    inline,
+    ...props
+}: TextProps = {}) {
     if (typeof children !== 'string') {
         return (
             <div
                 className={cx({
                     [`color-${color}`]: color,
                     [`typography-${size}`]: true,
-                    bold: bold,
+                    bold,
                 })}
                 {...props}
             >
@@ -36,7 +43,7 @@ export function Text({children, color = 'adaptiveGrey900', size = 't3', bold = f
                 [`color-${color}`]: color,
                 [`typography-${size}`]: true,
                 bold,
-                inline
+                inline,
             })}
             {...props}
         >
