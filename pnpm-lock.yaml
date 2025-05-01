@@ -14,10 +14,10 @@ importers:
       '@naverpay/pite':
         specifier: ^2.1.0
         version: 2.1.0(@babel/core@7.26.10)(@types/babel__core@7.20.5)(rollup@4.40.0)(tsup@8.4.0(@microsoft/api-extractor@7.52.5(@types/node@20.17.14))(@swc/core@1.10.7)(postcss@8.5.3)(typescript@5.7.3))(typescript@5.7.3)(vite@6.3.3(@types/node@20.17.14)(sass-embedded@1.87.0)(sass@1.83.4)(terser@5.37.0))
-      '@sadang/eslint-config':
+      '@sadangfe/eslint-config':
         specifier: workspace:^
         version: link:packages/eslint-config
-      '@sadang/prettier-config':
+      '@sadangfe/prettier-config':
         specifier: workspace:^
         version: link:packages/prettier-config
       '@vitejs/plugin-react':
@@ -47,10 +47,10 @@ importers:
 
   apps/ui-docs:
     devDependencies:
-      '@sadang/tsconfig':
+      '@sadangfe/tsconfig':
         specifier: workspace:^
         version: link:../../packages/tsconfig
-      '@sadang/ui':
+      '@sadangfe/ui':
         specifier: workspace:^
         version: link:../../packages/ui
       '@storybook/addon-essentials':
@@ -204,7 +204,7 @@ importers:
         specifier: '>=18'
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@sadang/tsconfig':
+      '@sadangfe/tsconfig':
         specifier: workspace:^
         version: link:../tsconfig
       '@types/react':
