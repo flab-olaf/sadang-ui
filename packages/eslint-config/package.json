@@ -1,5 +1,5 @@
 {
-    "name": "@sadang/eslint-config",
+    "name": "@sadangfe/eslint-config",
     "version": "0.0.0",
     "description": "",
     "main": "./dist/index.js",

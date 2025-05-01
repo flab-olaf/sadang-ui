@@ -1,4 +1,4 @@
-import _ from '../node_modules/@sadang/ui/dist/styles/design-system.scss'
+import _ from '../node_modules/@sadangfe/ui/dist/styles/design-system.scss'
 
 console.log('_', _) // eslint-disable-line
 
