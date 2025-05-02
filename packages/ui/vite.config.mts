@@ -1,13 +1,14 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
-import path from 'path'
-import {viteStaticCopy} from 'vite-plugin-static-copy'
-import cssInjected from 'vite-plugin-css-injected-by-js'
+import path, { extname, relative } from 'path'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 import fs from 'fs'
+import { glob } from 'glob'
 
 import builtins from 'builtin-modules'
+import { fileURLToPath } from 'url'
 
 const extension = '.mjs'
 
@@ -32,7 +33,7 @@ function getExternalDependencies(cwd: string) {
         deps = [...deps, ...Object.keys(packageJSON.peerDependencies)]
     }
 
-    // 의존성 목록에 하위 모듈도 포함시키기 위해 정규 표현식으로 추가
+    // 의존성 목록에 하위 모들도 포함시키기 위해 정규 표현식으로 추가
     return deps.flatMap((dep) => [dep, new RegExp(`^${dep}/.*`)])
 }
 
@@ -43,6 +44,24 @@ function getExternalDependencies(cwd: string) {
 const replaceExtension = (target: string, replacement: '.mjs' | '.js') => {
     const regex = /\.([tj]s[x]?|scss)$/
     return target.replace(regex, replacement)
+}
+
+/**
+ * 파일 경로로부터 엔트리 포인트를 동적으로 생성하는 함수
+ */
+function generateDynamicEntries() {
+    return Object.fromEntries(
+        glob
+            .sync('src/**/*.{ts,tsx,css}', {
+                ignore: ['src/**/*.d.ts'],
+            })
+            .map((file) => [
+                // 1. The name of the entry point
+                relative('src', file.slice(0, file.length - extname(file).length)),
+                // 2. The absolute path to the entry file
+                fileURLToPath(new URL(file, import.meta.url)),
+            ])
+    )
 }
 
 export default defineConfig({
@@ -62,10 +81,9 @@ export default defineConfig({
                 },
             ],
         }),
-        cssInjected()
     ],
     build: {
-        cssCodeSplit: true,
+        cssCodeSplit: true, // CSS 분할 활성화
         lib: {
             entry: path.resolve(__dirname, 'src/index.ts'), // 빌드할 엔트리 파일
             formats: ['es'], // ESM 형식으로 빌드
@@ -73,6 +91,8 @@ export default defineConfig({
         },
         outDir: 'dist', // 빌드된 파일들은 dist 폴더에 생성
         rollupOptions: {
+            // 동적으로 엔트리 파일을 설정
+            input: generateDynamicEntries(),
             // 외부 의존성으로 처리할 라이브러리 목록
             external: getExternalDependencies(process.cwd()),
             output: {

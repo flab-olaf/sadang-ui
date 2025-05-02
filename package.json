@@ -26,6 +26,7 @@
         "@sadangfe/prettier-config": "workspace:^",
         "@vitejs/plugin-react": "^4.4.1",
         "builtin-modules": "^4.0.0",
+        "glob": "^11.0.2",
         "prettier": "^3.2.5",
         "turbo": "^2.3.3",
         "typescript": "^5.2.2",
