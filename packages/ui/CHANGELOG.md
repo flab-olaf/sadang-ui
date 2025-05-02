@@ -1,5 +1,11 @@
 # @sadangfe/ui
 
+## 2.0.0
+
+### Major Changes
+
+- hi
+
 ## 1.0.0
 
 ### Major Changes
